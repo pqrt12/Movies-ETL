@@ -381,33 +381,27 @@ def movies_etl(wiki_movies_file, kaggle_movies_file, ratings_file):
         return -1
     return 0
 
-
+# shell command line
 if __name__ == "__main__":
-
-    is_filenames_given = False
+    ask_filenames = True
     if (len(sys.argv) > 3):
-        is_filenames_given = True
+        ask_filenames = False
         wiki_movies_file = sys.argv[1]
         kaggle_movies_file = sys.argv[2]
         ratings_file = sys.argv[3]
 
-    check_filenames = True
-    while True:
-        if is_filenames_given:
-            print("\nThese are the given filenames:")
-            print(f"{WIKI_FILE_STR}: {wiki_movies_file}")
-            print(f"{KAGGLE_FILE_STR}: {kaggle_movies_file}")
-            print(f"{RATINGS_FILE_STR}: {ratings_file}")
-            check_filenames = (input("all filenames are right? (yes/no) ").lower() != "yes")
-
-        if (check_filenames == False):
-            break
-            
+    while ask_filenames:
         print("\nInput full filenames (with path):")
         wiki_movies_file = input(f"{WIKI_FILE_STR}: (Data/wikipedia.movies.json) ")
         kaggle_movies_file = input(f"{KAGGLE_FILE_STR}: (Data/movies_metadata.csv) ")
         ratings_file = input(f"{RATINGS_FILE_STR}: (Data/ratings.csv) ")
-        is_filenames_given = True
+
+        # ask for confirmation
+        print("\nThese are the given filenames:")
+        print(f"{WIKI_FILE_STR}: {wiki_movies_file}")
+        print(f"{KAGGLE_FILE_STR}: {kaggle_movies_file}")
+        print(f"{RATINGS_FILE_STR}: {ratings_file}")
+        ask_filenames = (input("all filenames are right? (yes/no) ").lower() != "yes")
 
     print("\nNow perform movies data ETL...")
     ret = movies_etl(wiki_movies_file, kaggle_movies_file, ratings_file)
