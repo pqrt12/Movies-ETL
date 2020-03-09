@@ -369,7 +369,7 @@ def movies_etl(wiki_movies_file, kaggle_movies_file, ratings_file):
                 data.to_sql(name='ratings', con=engine, if_exists='append')
                 pass
             else:
-#               data.to_sql(name='ratings', con=engine, if_exists='append')
+                data.to_sql(name='ratings', con=engine, if_exists='append')
                 pass
             rows_imported += len(data)
 
